@@ -17,8 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Declaring routes
-app.use("/api/works", require("./routes/workRoutes"));
-app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/blogs", require("./routes/blogRoutes"));
+// app.use("/api/users", require("./routes/userRoutes"));
 
 app.use(errorHandler);
 

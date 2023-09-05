@@ -15,7 +15,7 @@ const getAllBlogs = asyncHandler(async (req, res) => {
 // @desc    Get blog
 // @route   GET /api/blogs
 // @access  Private
-const getUserBlog = asyncHandler(async (req, res) => {
+const getBlog = asyncHandler(async (req, res) => {
   const blogs = await Blog.find({ user: req.user.id }).sort({ createdAt: -1 }); // asorting the latest blog to top by date
 
   res.status(200).json(blogs);
@@ -72,34 +72,12 @@ const deleteBlog = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-// // @route    PUT api/posts/like/:id
-// // @desc     Like a post
-// // @access   Private
-const likeBlog = asyncHandler(async (req, res) => {
-  try {
-    // Finding the blog by its _id
-    const blog = await Blog.findById(req.params.id);
-
-    // Check if the post has already been liked
-    if (blog.likes.some((like) => like.user.toString() === req.user.id)) {
-      return res.status(400).json({ msg: "Post already liked" });
-    }
-
-    blog.likes.unshift({ user: req.user.id });
-
-    await blog.save();
-
-    return res.json(blog.likes);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
+const updateBlog = asyncHandler(async (req, res) => {});
 
 module.exports = {
   getAllBlogs,
   addBlog,
   deleteBlog,
-  getUserBlog,
-  likeBlog,
-}; // passing the functions to router on backend
+  getBlog,
+  updateBlog,
+};
